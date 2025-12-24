@@ -16,6 +16,8 @@ template <typename Key, typename Value> struct MapSignals {
     struct Inserted {
         const Key &key;
         const Value &value;
+
+	Inserted(const Key &key, const Value &value) : key(key), value(value) {};
     };
 
     // Fired when an existing key's value changes
@@ -91,8 +93,8 @@ class ReactiveUnorderedMap {
 
     // startfold specific signals
     using map_signals = MapSignals<Key, Value>;
-    using inserted_signal = map_signals::Inserted;
-    using erased_signal = map_signals::Erased;
+    using inserted_signal = typename map_signals::Inserted;
+    using erased_signal = typename map_signals::Erased;
     // endfold
 
     ReactiveUnorderedMap() = default;
